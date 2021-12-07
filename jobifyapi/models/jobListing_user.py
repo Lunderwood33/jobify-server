@@ -1,5 +1,5 @@
 from django.db import models
 
 class JobListingUser(models.Model):
-    user = models.ForeignKey("JobifyUser", on_delete=models.CASCADE)
-    jobListing = models.ForeignKey("JobListing", on_delete=models.CASCADE)
+    jobify_user = models.ForeignKey("JobifyUser", on_delete=models.CASCADE)
+    job_listing = models.ForeignKey("JobListing", on_delete=models.CASCADE)
