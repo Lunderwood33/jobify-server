@@ -5,4 +5,12 @@
         "--load-plugins=pylint_django",
         "--django-settings-module=jobify.settings",
     ],
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "Jobify DB",
+            "database": "db.sqlite3"
+        }
+    ],
 }
