@@ -1,0 +1,12 @@
+[
+    {
+        "model": "jobifyapi.jobifyuser",
+        "pk": 1,
+        "fields": {
+            "name": "Lincoln Underwood",
+            "bio": "Creator of the application",
+            "isBusiness": false,
+            "user": 1
+        }
+    }
+]

@@ -1,0 +1,17 @@
+[
+    {
+        "model": "jobifyapi.jobtype",
+        "pk": 1,
+        "fields": {
+            "label": "Software Engineer"
+        }
+    },
+    {
+        "model": "jobifyapi.jobtype",
+        "pk": 2,
+        "fields": {
+            "label": "Data Analyst"
+        }
+
+    }
+]
