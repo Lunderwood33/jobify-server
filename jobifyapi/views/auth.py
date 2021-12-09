@@ -46,7 +46,7 @@ def register_user(request):
 
     # Create a new user by invoking the `create_user` helper method
     # on Django's built-in User model
-    new_user = User.objects.create_user(
+    user = User.objects.create_user(
         username=request.data['username'],
         password=request.data['password'],
         first_name=request.data['first_name'],
@@ -56,11 +56,11 @@ def register_user(request):
     # Now save the extra info in the levelupapi_user table
     jobify_user = JobifyUser.objects.create(
         bio=request.data['bio'],
-        user=new_user
+        user=user
     )
 
     # Use the REST Framework's token generator on the new user account
-    token = Token.objects.create(user=jobify_user.user)
+    token = Token.objects.create(user=user)
     # Return the token to the client
     data = { 'token': token.key }
     return Response(data)
