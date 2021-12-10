@@ -56,7 +56,9 @@ def register_user(request):
     # Now save the extra info in the levelupapi_user table
     jobify_user = JobifyUser.objects.create(
         bio=request.data['bio'],
-        user=user
+        user=user,
+        isBusiness=request.data['isBusiness']
+
     )
 
     # Use the REST Framework's token generator on the new user account
