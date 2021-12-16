@@ -6,7 +6,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
 from rest_framework import status
-from jobifyapi.models import JobListing, JobType
+from jobifyapi.models import JobListing, JobType, JobifyUser
 
 
 class JobListingView(ViewSet):
@@ -20,7 +20,7 @@ class JobListingView(ViewSet):
         """
 
         # Uses the token passed in the `Authorization` header
-        # jobify_user = JobifyUser.objects.get(user=request.auth.user)
+        jobify_user = JobifyUser.objects.get(user=request.auth.user)
 
         # Use the Django ORM to get the record from the database
         # whose `id` is what the client passed as the
@@ -38,10 +38,9 @@ class JobListingView(ViewSet):
                 title=request.data["title"],
                 description=request.data["description"],
                 wage=request.data["wage"],
-                company=request.data["company"],
+                company=jobify_user,
                 job_type=job_type,
-                interested=request.data["interested"],
-                url=request.data["url"]
+                url=request.data["jobListingURL"]
             )
             serializer = JobListingSerializer(job_listing, context={'request': request})
             return Response(serializer.data)
@@ -69,8 +68,8 @@ class JobListingView(ViewSet):
             job_listing = JobListing.objects.get(pk=pk)
             serializer = JobListingSerializer(job_listing, context={'request': request})
             return Response(serializer.data)
-        except Exception as ex:
-            return HttpResponseServerError(ex)
+        except JobListing.DoesNotExist as ex:
+            return Response({'message': 'Job listing does not exist'}, status=status.HTTP_404_NOT_FOUND)
 
     def update(self, request, pk=None):
         """Handle PUT requests for a game
